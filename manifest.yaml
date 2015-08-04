@@ -5,7 +5,8 @@ containers:
   - name: BSDPy
     category: NetBoot
     icon: python
-    image: bruienne/bsdpy
+    image: bruienne/bsdpy:api
+
     ports:
       - host: 67
         guest: 67
