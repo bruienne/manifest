@@ -2,147 +2,45 @@
 ---
 containers:
 
-  - name: mongodb_data
-    image: aweber/mongodata
-    standalone: true
-    visible: false
+  - name: BSDPy
+    category: NetBoot
+    icon: python
+    image: bruienne/bsdpy
+    ports:
+      - host: 67
+        guest: 67
+        protocol: udp
     volumes:
-      - /var/lib/mongodb
+      - /nbi
 
-  - name: mysql_data
-    image: aweber/mysqldata
-    standalone: true
-    visible: false
-    volumes:
-      - /var/lib/mysql
-
-  - name: redis_data
-    image: aweber/redisdata
-    standalone: true
-    visible: false
-    volumes:
-      - /var/lib/redis
-
-  - name: Couchbase
+  - name: tftpd
     category: Low-Level
-    icon: couchbase
-    image: aweber/couchbase
+    dependencies: BSDPy
+    icon: server
+    image: macadmins/tftpd
     ports:
-      - 8091
-      - 8092
-      - 11210
-      - 11211
+      - host: 69
+        guest: 69
+        protocol: udp
 
-  - name: Elasticsearch
+  - name: Nginx
     category: Low-Level
-    icon: elasticsearch
-    image: aweber/elasticsearch
+    dependencies: BSDPy
+    icon: nginx
+    image: nginx
     ports:
-      - 9200
-      - 9300
-
-  - name: Ghost
-    category: Application
-    icon: nodejs
-    image: aweber/ghost
-    ports:
-      - 2368
-    repository:
-      url: https://github.com/TryGhost/Ghost.git
-
-  - name: Grafana
-    category: Application
-    dependencies:
-      - Elasticsearch
-      - Graphite
-    icon: fa-dashboard
-    image: aweber/grafana
-    ports:
-      - guest: 9202
-        host: 9202
-        protoco: tcp
-
-  - name: Graphite
-    category: Low-Level
-    icon: fa-bar-chart-o
-    image: aweber/graphite
-    ports:
-      - 2003
-      - 2004
-      - 2005
-
-  - name: InfluxDB
-    category: Low-Level
-    image: aweber/influxdb
-    ports:
-      - 8083
-      - 8086
-      - 8090
-      - 8099
-
-  - name: Memcached
-    category: Low-Level
-    icon: memcached
-    image: aweber/memcached
-    ports:
-      - 11211
-
-  - name: MongoDB
-    category: Low-Level
-    icon: mongodb
-    image: aweber/mongodb
-    dependencies:
-      - mongodb_data
-    ports:
-      - 27017
-
-  - name: MySQL
-    category: Low-Level
-    icon: mysql
-    image: aweber/mysql
-    dependencies:
-      - mysql_data
-    ports:
-      - 3306
-
-  - name: PostgreSQL
-    category: Low-Level
-    icon: postgresql
-    image: aweber/postgresql
-    ports:
-      - 5432
-
-  - name: RabbitMQ
-    category: Low-Level
-    icon: rabbitmq
-    image: aweber/rabbitmq
-    ports:
-      - 1883
-      - 4369
-      - 5672
-      - 15672
-      - 25672
+      - host: 80
+        guest: 80
+        protocol: tcp
 
   - name: Redis
     category: Low-Level
     icon: redis
-    image: aweber/redis
+    image: redis
     dependencies:
       - redis_data
     ports:
       - 6379
-
-  - name: StatsD
-    category: Low-Level
-    icon: nodejs
-    image: aweber/statsd
-    ports:
-      - guest: 8125
-        host: 8125
-        protocol: udp
-      - guest: 8126
-        host: 8126
-        protocol: tcp
 
 docker:
   server: registry.hub.docker.com
@@ -184,10 +82,10 @@ vagrant:
   box: coreos-alpha
   cpu_count: 2
   ram: 2048
-  hostname: vessel-public
+  hostname: vessel-bsdpy
   network:
     type: private
-    ip: 192.168.50.101
+    ip: 192.168.50.102
   providers:
     - name: virtualbox
       min_version: 402.2.0
@@ -195,8 +93,3 @@ vagrant:
     - name: vmware_fusion
       min_version: 402.2.0
       url: http://storage.core-os.net/coreos/amd64-usr/alpha/coreos_production_vagrant_vmware_fusion.json
-  synced_folders:
-    - name: scripts
-      mount: /home/core/bin
-    - name: source
-      mount: /mnt/source
