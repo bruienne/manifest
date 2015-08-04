@@ -25,7 +25,7 @@ containers:
 
   - name: Nginx
     category: Low-Level
-    dependencies: BSDPy
+    dependencies: tftpd
     icon: nginx
     image: nginx
     ports:
