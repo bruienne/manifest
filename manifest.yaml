@@ -58,7 +58,9 @@ containers:
     icon: fa-dashboard
     image: aweber/grafana
     ports:
-      - 9202
+      - guest: 9202
+        host: 9202
+        protoco: tcp
 
   - name: Graphite
     category: Low-Level
