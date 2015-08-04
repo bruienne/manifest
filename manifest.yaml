@@ -15,7 +15,8 @@ containers:
 
   - name: tftpd
     category: Low-Level
-    dependencies: BSDPy
+    dependencies:
+      - BSDPy
     icon: server
     image: macadmins/tftpd
     ports:
@@ -25,7 +26,8 @@ containers:
 
   - name: Nginx
     category: Low-Level
-    dependencies: tftpd
+    dependencies:
+      - tftpd
     icon: nginx
     image: nginx:latest
     ports:
