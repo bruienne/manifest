@@ -27,7 +27,7 @@ containers:
     category: Low-Level
     dependencies: tftpd
     icon: nginx
-    image: nginx
+    image: nginx:latest
     ports:
       - host: 80
         guest: 80
@@ -36,9 +36,7 @@ containers:
   - name: Redis
     category: Low-Level
     icon: redis
-    image: redis
-    dependencies:
-      - redis_data
+    image: redis:latest
     ports:
       - 6379
 
