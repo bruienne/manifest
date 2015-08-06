@@ -94,6 +94,3 @@ vagrant:
     - name: vmware_fusion
       min_version: 402.2.0
       url: http://storage.core-os.net/coreos/amd64-usr/alpha/coreos_production_vagrant_vmware_fusion.json
-  synced_folders:
-    - name: nbi
-      mount: /nbi
