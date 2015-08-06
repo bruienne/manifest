@@ -2,7 +2,7 @@
 ---
 containers:
 
-  - name: BSDPy
+  - name: bsdpy
     category: NetBoot
     icon: python
     image: bruienne/bsdpy:1.0
@@ -10,13 +10,14 @@ containers:
       - host: 67
         guest: 67
         protocol: udp
+    required: true
     volumes:
       - /nbi
 
   - name: tftpd
     category: Low-Level
     dependencies:
-      - BSDPy
+      - bsdpy
     icon: server
     image: macadmins/tftpd
     ports:
@@ -27,7 +28,7 @@ containers:
   - name: Nginx
     category: Low-Level
     dependencies:
-      - tftpd
+      - bsdpy
     icon: nginx
     image: nginx:latest
     ports:
