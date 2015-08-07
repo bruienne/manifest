@@ -12,7 +12,7 @@ containers:
         protocol: udp
     required: true
     volumes:
-      - /nbi
+      - /nbi:/nbi
 
   - name: tftpd
     category: Low-Level
